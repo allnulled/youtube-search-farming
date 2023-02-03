@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listar vídeos de Youtube</title>
+    <style>
+        *{box-sizing:border-box;font-family:Roboto;font-size:10px;}
+        table,textarea,button{width:100%}
+        textarea{resize:vertical}
+        .channel_link{white-space:nowrap;}
+    </style>
+</head>
+<body>
+    <h1>Listar vídeos de Youtube</h1>
+    <textarea id="entrada" placeholder="Pegar el JSON aquí"></textarea>
+    <button id="boton">Cargar</button>
+    <table>
+        <thead>
+            <tr>
+                <th style="width:1%;">#</th>
+                <th style="width:1%;">Duración</th>
+                <th style="width:1%;">Canal</th>
+                <th style="width:98%;white-space:nowrap;">Título</th>
+            </tr>
+        </thead>
+        <tbody id="salida">
+            
+        </tbody>
+    </table>
+    <script>
+    window.addEventListener("load", function() {
+        document.getElementById("boton").addEventListener("click", function() {
+            const elemento_entrada = document.getElementById("entrada");
+            const elemento_salida = document.getElementById("salida");
+            const valor_json = elemento_entrada.value;
+            const valor = JSON.parse(valor_json);
+            for(let index_row = 0; index_row < valor.length; index_row++) {
+                const dato = valor[index_row];
+                const elemento_tr = document.createElement("tr");
+                const elemento_td_1 = document.createElement("td");
+                const elemento_td_2 = document.createElement("td");
+                const elemento_td_3 = document.createElement("td");
+                const elemento_td_4 = document.createElement("td");
+                const elemento_a = document.createElement("a");
+                elemento_a.textContent = dato.title;
+                elemento_a.setAttribute("href", dato.link);
+                elemento_a.setAttribute("target", "_blank");
+                const elemento_a_canal = document.createElement("a");
+                elemento_a_canal.textContent = dato.channel;
+                elemento_a_canal.setAttribute("href", dato.channel_link);
+                elemento_a_canal.setAttribute("target", "_blank");
+                elemento_a_canal.className = "channel_link";
+                elemento_td_1.textContent = index_row + 1;
+                elemento_td_2.textContent = dato.time;
+                elemento_td_3.appendChild(elemento_a_canal);
+                elemento_td_4.appendChild(elemento_a);
+                elemento_tr.appendChild(elemento_td_1);
+                elemento_tr.appendChild(elemento_td_2);
+                elemento_tr.appendChild(elemento_td_3);
+                elemento_tr.appendChild(elemento_td_4);
+                elemento_salida.appendChild(elemento_tr);
+            }
+        });
+    });
+    </script>
+</body>
+</html>
