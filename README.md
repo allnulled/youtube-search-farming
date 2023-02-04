@@ -7,7 +7,7 @@ Script para capturar en un JSON la información de los vídeos de una búsqueda 
 Sólo clona el repositorio con:
 
 ```sh
-git clone .
+git clone https://github.com/allnulled/youtube-search-farming.git .
 ```
 
 O descárgatelo a mano. No requiere de instalar nada más.
